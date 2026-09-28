@@ -1,0 +1,251 @@
+@import "tailwindcss";
+
+/* Neumorphism: one flat surface color, depth comes only from paired
+   light/dark shadows. No gradients anywhere.
+
+   Palette: Cream #FAF3E0 · Peach #EABF9F · Muted Brown #B68972 · Navy #1E202D.
+   --accent is for text (contrast-checked); --fill / --fill-soft are for
+   solid shapes; --on-fill is text placed on those shapes. */
+:root {
+  --surface: #faf3e0;
+  --surface-2: #f3e3c3;
+  --text: #1e202d;
+  --muted: #6e5b4e;
+  --accent: #8a5a43;
+  --fill: #b68972;
+  --fill-soft: #eabf9f;
+  --ink: #1e202d;
+  --on-fill: #1e202d;
+  --on-ink: #faf3e0;
+  --danger: #a8412e;
+  --shadow-dark: #ddd0b3;
+  --shadow-light: #ffffff;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #1e202d;
+    --surface-2: #262939;
+    --text: #faf3e0;
+    --muted: #b3a794;
+    --accent: #eabf9f;
+    --fill: #eabf9f;
+    --fill-soft: #b68972;
+    --ink: #faf3e0;
+    --on-fill: #1e202d;
+    --on-ink: #1e202d;
+    --danger: #f2a08c;
+    --shadow-dark: #13141d;
+    --shadow-light: #2a2d3f;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --surface: #1e202d;
+  --surface-2: #262939;
+  --text: #faf3e0;
+  --muted: #b3a794;
+  --accent: #eabf9f;
+  --fill: #eabf9f;
+  --fill-soft: #b68972;
+  --ink: #faf3e0;
+  --on-fill: #1e202d;
+  --on-ink: #1e202d;
+  --danger: #f2a08c;
+  --shadow-dark: #13141d;
+  --shadow-light: #2a2d3f;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-fill: var(--fill);
+  --color-fill-soft: var(--fill-soft);
+  --color-ink: var(--ink);
+  --color-on-fill: var(--on-fill);
+  --color-on-ink: var(--on-ink);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+::selection {
+  background: var(--fill-soft);
+  color: var(--on-fill);
+}
+
+@utility neu-raised {
+  background: var(--surface);
+  box-shadow:
+    6px 6px 14px var(--shadow-dark),
+    -6px -6px 14px var(--shadow-light);
+}
+
+@utility neu-raised-sm {
+  background: var(--surface);
+  box-shadow:
+    3px 3px 7px var(--shadow-dark),
+    -3px -3px 7px var(--shadow-light);
+}
+
+@utility neu-inset {
+  background: var(--surface);
+  box-shadow:
+    inset 4px 4px 10px var(--shadow-dark),
+    inset -4px -4px 10px var(--shadow-light);
+}
+
+/* Raised card that sinks in on hover/press. */
+@utility neu-button {
+  background: var(--surface);
+  box-shadow:
+    6px 6px 14px var(--shadow-dark),
+    -6px -6px 14px var(--shadow-light);
+  transition: box-shadow 180ms ease;
+
+  &:hover {
+    box-shadow:
+      3px 3px 7px var(--shadow-dark),
+      -3px -3px 7px var(--shadow-light);
+  }
+
+  &:active {
+    box-shadow:
+      inset 4px 4px 10px var(--shadow-dark),
+      inset -4px -4px 10px var(--shadow-light);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
+
+/* Text inputs and selects sit "pressed into" the surface. */
+@utility neu-field {
+  background: var(--surface);
+  box-shadow:
+    inset 3px 3px 7px var(--shadow-dark),
+    inset -3px -3px 7px var(--shadow-light);
+  border: 1px solid transparent;
+  outline: none;
+
+  &:focus-visible {
+    border-color: var(--accent);
+  }
+}
+
+/* Slider: inset track, raised thumb with a solid accent core. */
+.neu-range {
+  appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow:
+    inset 2px 2px 5px var(--shadow-dark),
+    inset -2px -2px 5px var(--shadow-light);
+  cursor: pointer;
+}
+
+.neu-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--fill);
+  border: 6px solid var(--surface);
+  box-shadow:
+    3px 3px 6px var(--shadow-dark),
+    -3px -3px 6px var(--shadow-light);
+}
+
+.neu-range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--fill);
+  border: 6px solid var(--surface);
+  box-shadow:
+    3px 3px 6px var(--shadow-dark),
+    -3px -3px 6px var(--shadow-light);
+}
+
+.neu-range:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Theme toggle: show the moon in light mode, the sun in dark mode. */
+.theme-icon-sun {
+  display: none;
+}
+:root[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+:root[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-icon-sun {
+    display: block;
+  }
+  :root:not([data-theme="light"]) .theme-icon-moon {
+    display: none;
+  }
+}
+
+/* Shadow-only variants, for colored (filled) neumorphic shapes. */
+@utility neu-shadow-sm {
+  box-shadow:
+    3px 3px 7px var(--shadow-dark),
+    -3px -3px 7px var(--shadow-light);
+}
+
+@utility neu-shadow {
+  box-shadow:
+    6px 6px 14px var(--shadow-dark),
+    -6px -6px 14px var(--shadow-light);
+}
+
+/* Filled call-to-action button that still presses in. */
+@utility neu-button-fill {
+  background: var(--fill);
+  color: var(--on-fill);
+  box-shadow:
+    5px 5px 12px var(--shadow-dark),
+    -5px -5px 12px var(--shadow-light);
+  transition: box-shadow 180ms ease;
+
+  &:hover {
+    box-shadow:
+      2px 2px 6px var(--shadow-dark),
+      -2px -2px 6px var(--shadow-light);
+  }
+
+  &:active {
+    box-shadow:
+      inset 3px 3px 8px rgb(0 0 0 / 0.25),
+      inset -2px -2px 6px rgb(255 255 255 / 0.2);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+}
